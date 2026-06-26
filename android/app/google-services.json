@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "61712477353",
+    "project_id": "tamkeen-6c9be",
+    "storage_bucket": "tamkeen-6c9be.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61712477353:android:fbb2d02b9acc2a2d76cdb8",
+        "android_client_info": {
+          "package_name": "com.example.grad_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEksBzD_-FuCNE8c7dllX6Sna6JNBZUGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
