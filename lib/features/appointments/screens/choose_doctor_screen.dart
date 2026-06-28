@@ -1,36 +1,47 @@
 import 'package:flutter/material.dart';
 import 'select_date_time_screen.dart';
 import '../models/appointment_booking.dart';
+import '../services/doctor_service.dart';
 
-class ChooseDoctorScreen extends StatelessWidget {
+class ChooseDoctorScreen extends StatefulWidget {
   final AppointmentBooking booking;
 
   const ChooseDoctorScreen({super.key, required this.booking});
+
+  @override
+  State<ChooseDoctorScreen> createState() => _ChooseDoctorScreenState();
+}
+
+class _ChooseDoctorScreenState extends State<ChooseDoctorScreen> {
+  @override
+  void initState() {
+    super.initState();
+    loadDoctors();
+  }
+
+  Future<void> loadDoctors() async {
+    try {
+      final doctors = await DoctorService().getDoctors();
+
+      print("========== DOCTORS ==========");
+      print(doctors);
+    } catch (e) {
+      print("ERROR = $e");
+    }
+  }
+  /* Future<void> loadDoctors() async {
+    try {
+      final doctors = await DoctorService().getDoctors();
+
+      print("DOCTORS = $doctors");
+    } catch (e) {
+      print("ERROR = $e");
+    }
+  }*/
+
   @override
   Widget build(BuildContext context) {
-    final doctors = [
-      {
-        "name": "Dr. Sarah Mansour",
-        "specialty": "Cardiologist",
-        "rating": 4.9,
-        "experience": 12,
-        "available": true,
-      },
-      {
-        "name": "Dr. Omar Khaled",
-        "specialty": "Cardiologist",
-        "rating": 4.8,
-        "experience": 9,
-        "available": true,
-      },
-      {
-        "name": "Dr. Layla Hassan",
-        "specialty": "Cardiologist",
-        "rating": 4.7,
-        "experience": 15,
-        "available": false,
-      },
-    ];
+    final doctors = [];
 
     return Scaffold(
       backgroundColor: const Color(0xFFF4F7FB),
@@ -163,15 +174,20 @@ class ChooseDoctorScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: doctor["available"] == true
                         ? () {
-                            booking.doctorName = doctor["name"].toString();
+                            // السطر السحري اللي كان ناقص:
+                            widget.booking.doctorId = doctor["id"].toString();
 
-                            booking.specialty = doctor["specialty"].toString();
+                            widget.booking.doctorName = doctor["name"]
+                                .toString();
+                            widget.booking.specialty = doctor["specialty"]
+                                .toString();
 
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) =>
-                                    SelectDateTimeScreen(booking: booking),
+                                builder: (_) => SelectDateTimeScreen(
+                                  booking: widget.booking,
+                                ),
                               ),
                             );
                           }
