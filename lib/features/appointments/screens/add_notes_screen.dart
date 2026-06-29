@@ -4,7 +4,6 @@ import '../models/appointment_booking.dart';
 
 class AddNotesScreen extends StatefulWidget {
   final AppointmentBooking booking;
-
   const AddNotesScreen({super.key, required this.booking});
 
   @override
@@ -22,11 +21,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
 
   Widget exampleCard(String text) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          notesController.text = text;
-        });
-      },
+      onTap: () => setState(() => notesController.text = text),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(14),
@@ -44,7 +39,8 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F7FB),
-
+      // ✅ resizeToAvoidBottomInset يخلي الـ screen تتكيف مع الـ keyboard
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: const Color(0xFFF4F7FB),
         elevation: 0,
@@ -69,8 +65,10 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
           ],
         ),
       ),
-
-      body: Padding(
+      // ✅ SingleChildScrollView بدل Column ثابتة عشان يتجنب الـ overflow
+      body:  GestureDetector(
+  onTap: () => FocusScope.of(context).unfocus(),
+  child:SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,12 +77,11 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
               "Describe your symptoms or reason for visit",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 16),
 
             TextField(
               controller: notesController,
-              maxLines: 8,
+              maxLines: 6,
               maxLength: 300,
               decoration: InputDecoration(
                 hintText:
@@ -99,28 +96,24 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
             ),
 
             const SizedBox(height: 20),
-
             const Text(
               "Quick Examples",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 12),
 
             exampleCard("I have chest pain for two days."),
-
             exampleCard("Follow-up visit after medication."),
-
             exampleCard("Severe headache and dizziness."),
 
-            const Spacer(),
+            const SizedBox(height: 24),
+
             SizedBox(
               width: double.infinity,
               height: 58,
               child: ElevatedButton(
                 onPressed: () {
                   widget.booking.notes = notesController.text;
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -145,10 +138,10 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                 ),
               ),
             ),
-
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
           ],
         ),
+      ),
       ),
     );
   }

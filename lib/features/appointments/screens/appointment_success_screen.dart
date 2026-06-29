@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grad_project/features/navigation/main_navigation_screen.dart';
-import 'appointments_screen.dart';
-import 'appointments_screen.dart';
 
 class AppointmentSuccessScreen extends StatefulWidget {
   const AppointmentSuccessScreen({super.key});
@@ -18,7 +16,6 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
   @override
   void initState() {
     super.initState();
-
     controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1200),
@@ -37,18 +34,15 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F7FB),
-
       body: SafeArea(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
-
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ScaleTransition(
                   scale: controller,
-
                   child: Container(
                     width: 110,
                     height: 110,
@@ -56,7 +50,6 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                       color: Color(0xFF08C58A),
                       shape: BoxShape.circle,
                     ),
-
                     child: const Icon(
                       Icons.check,
                       color: Colors.white,
@@ -64,25 +57,21 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 35),
-
                 const Text(
                   "Appointment Requested",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-
                 const SizedBox(height: 12),
-
                 const Text(
                   "Your request has been sent successfully. You can track its status from the Appointments section.",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.grey, height: 1.6),
                 ),
-
                 const SizedBox(height: 40),
 
+                // ✅ index 3 = Appointments
                 SizedBox(
                   width: double.infinity,
                   height: 58,
@@ -92,7 +81,7 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                         context,
                         MaterialPageRoute(
                           builder: (_) =>
-                              const MainNavigationScreen(initialIndex: 2),
+                              const MainNavigationScreen(initialIndex: 3),
                         ),
                         (route) => false,
                       );
@@ -113,9 +102,9 @@ class _AppointmentSuccessScreenState extends State<AppointmentSuccessScreen>
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 14),
 
+                // ✅ index 0 = Home
                 SizedBox(
                   width: double.infinity,
                   height: 58,

@@ -3,27 +3,30 @@ class PatientVitals {
   final String bloodPressure;
   final double temperature;
   final int bloodSugar;
+  final double weight;
 
   PatientVitals({
     required this.heartRate,
     required this.bloodPressure,
     required this.temperature,
     required this.bloodSugar,
+    this.weight = 0,
   });
 
   factory PatientVitals.fromJson(Map<String, dynamic> json) {
-    final bloodPressureList =
-        json["bloodPressure"] as List<dynamic>? ?? [];
+    // ✅ bloodPressure هو array - نجيب آخر reading
+    final bpList = json["bloodPressure"] as List<dynamic>? ?? [];
+    final latestBP = bpList.isNotEmpty ? bpList.last : null;
 
-    final latestBP = bloodPressureList.isNotEmpty
-        ? bloodPressureList.last
-        : null;
+    final heartRate = (latestBP?["heartRate"] ?? 0).toInt();
+    final bp = latestBP?["bp"] ?? "--/--";
 
     return PatientVitals(
-      heartRate: latestBP?["heartRate"] ?? 0,
-      bloodPressure: latestBP?["bp"] ?? "--/--",
+      heartRate: heartRate,
+      bloodPressure: bp,
       temperature: (json["temperature"] ?? 0).toDouble(),
-      bloodSugar: json["bloodSugar"] ?? 0,
+      bloodSugar: (json["bloodSugar"] ?? 0).toInt(),
+      weight: (json["bodyWeight"] ?? 0).toDouble(), // ✅ bodyWeight مش weight
     );
   }
 }
