@@ -40,10 +40,7 @@ class _MyAppState extends State<MyApp> {
 
       // ✅ دعم العربي والإنجليزي
       locale: Locale(currentLocale),
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ar'),
-      ],
+      supportedLocales: const [Locale('en'), Locale('ar')],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
